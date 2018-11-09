@@ -1,13 +1,23 @@
 import React from 'react'
 
-const Artwork = ({artwork}) => {
+const Artwork = ({artwork, showModal}) => {
   return(
-    <div>
-      <h4>{artwork.title}</h4>
-      <img src={artwork.img} style={{maxWidth: '100px'}}/>
-      {artwork.description ? <p>{ artwork.description }</p> : null}
+    <React.Fragment>
+      <div className="row">
+        <div className="col-3">
+          <img onClick={event=> showModal(artwork)} src={artwork.img} style={{maxWidth: '200px', maxHeight: '400px'}}/>
+        </div>
+        <div className="col-9">
+          <h4><b>{artwork.title}</b></h4>
+          {artwork.dated ? <p>Dated: { artwork.dated }</p> : null}
+          {artwork.culture ? <p>Culture: { artwork.culture }</p> : null}
+          {artwork.medium ? <p>Medium: { artwork.medium }</p> : null}
+          {artwork.division ? <p>Division: { artwork.division }</p> : null}
+          {artwork.description ? <p>Description: { artwork.description }</p> : null}
+        </div>
+      </div>
       <hr />
-    </div>
+    </React.Fragment>
   )
 }
 
