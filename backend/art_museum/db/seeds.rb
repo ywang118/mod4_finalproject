@@ -101,8 +101,10 @@ end
 
 puts "-------------------------------"
 puts "creating Artworks"
+j =0
 510.times do
-  Artwork.create!(title:titlearr_total.flatten[i], img: imagearr_total.flatten[i], culture: culturearr_total.flatten[i],classification: classificationarr_total.flatten[i],people: peoplearr_total.flatten[i],division: divisionarr_total.flatten[i],description: provenancearr_total.flatten[i], diminsions: dimensionsarr_total.flatten[i],dated: datedarr_total.flatten[i],
-  accessionyear: accessionyeararr_total.flatten[i],period:periodarr_total.flatten[i], medium: mediumarr_total.flatten[i])
+  Artwork.create!(title:titlearr_total.flatten[j], img: imagearr_total.flatten[j], culture: culturearr_total.flatten[j],classification: classificationarr_total.flatten[j],people: peoplearr_total.flatten[j],division: divisionarr_total.flatten[j],description: provenancearr_total.flatten[j], diminsions: dimensionsarr_total.flatten[j],dated: datedarr_total.flatten[j],
+  accessionyear: accessionyeararr_total.flatten[j],period:periodarr_total.flatten[j], medium: mediumarr_total.flatten[j])
+  j +=1
 end
 puts "done with artworks"
