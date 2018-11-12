@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Artwork = ({artwork, showModal}) => {
+const Artwork = ({artwork, showModal,favoriteArtwork}) => {
   return(
     <React.Fragment>
       <div className="row">
@@ -14,6 +14,9 @@ const Artwork = ({artwork, showModal}) => {
           {artwork.medium ? <p>Medium: { artwork.medium }</p> : null}
           {artwork.division ? <p>Division: { artwork.division }</p> : null}
           {artwork.description ? <p>Description: { artwork.description }</p> : null}
+          <br />
+         <button onClick={event=>favoriteArtwork(event, artwork.id)} className="btn btn-outline-dark
+         ">Favorite</button>
         </div>
       </div>
       <hr />

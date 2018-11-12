@@ -17,20 +17,21 @@ class Api::V1::FavoritesController < ApplicationController
 
   def destroy
     favoriteId = @favorite.id
-    @user.destroy
-    render json: {message:"Zap! user deleted", favoriteId:favoriteId}
+    @favorite.destroy
+    render json: {message:"Zap! favorite deleted", favoriteId:favoriteId}
   end
 
   def show
-    render json: @user, status: 200
+    render json: @favorite, status: 200
   end
 
   private
   def favorite_params
-    params.permit(:name)
+  
+    params.permit(:artwork_id,:user_id, :note )
   end
 
   def set_favorite
-    @user = Favorite.find(params[:id])
+    @favorite = Favorite.find(params[:id])
   end
 end
