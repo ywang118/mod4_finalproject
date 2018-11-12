@@ -11,11 +11,27 @@ import SideBar from './components/SideBar'
 // import { Grid, Row, Col } from 'react-bootstrap'
 
 class App extends Component {
+  state = {
+    users: [],
+    currentUser: null
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3000/api/v1/users')
+    .then(response => response.json())
+    .then(userData => {
+      console.log(userData)
+      this.setState({
+        users: userData
+      })
+    })
+  }
+
   render(){
+    
     return(
       <div className="App">
-
-        <NavBar />
+        <NavBar users={this.state.users}/>
         <Switch>
 
             <Route exact path="/login" component={Login} />

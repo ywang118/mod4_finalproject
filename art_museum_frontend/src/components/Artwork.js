@@ -1,13 +1,14 @@
 import React from 'react'
+import { Icon } from 'semantic-ui-react'
 
-const Artwork = ({artwork, showModal,favoriteArtwork}) => {
+const Artwork = ({artwork, showModal,favoriteArtwork, favorites}) => {
   return(
     <React.Fragment>
-      <div className="row">
-        <div className="col-3">
+      <div className="artwork row">
+        <div className="art-image col-3">
           <img onClick={event=> showModal(artwork)} src={artwork.img} style={{maxWidth: '200px', maxHeight: '400px'}}/>
         </div>
-        <div className="col-9">
+        <div className="art-desc col-9">
           <h4><b>{artwork.title}</b></h4>
           {artwork.dated ? <p>Dated: { artwork.dated }</p> : null}
           {artwork.culture ? <p>Culture: { artwork.culture }</p> : null}
@@ -15,8 +16,15 @@ const Artwork = ({artwork, showModal,favoriteArtwork}) => {
           {artwork.division ? <p>Division: { artwork.division }</p> : null}
           {artwork.description ? <p>Description: { artwork.description }</p> : null}
           <br />
-         <button onClick={event=>favoriteArtwork(event, artwork.id)} className="btn btn-outline-dark
-         ">Favorite</button>
+         {favorites.find(favoriteObj => favoriteObj.artwork_id === artwork.id) ?
+           <button onClick={event=>favoriteArtwork(event, artwork.id)} className="btn btn-outline-dark">
+         <Icon name='heart' />
+         {"Unfavorite"}
+         </button> :
+         <button onClick={event=>favoriteArtwork(event, artwork.id)} className="btn btn-outline-dark">
+         <Icon name='heart outline'/>
+         {"Favorite"}
+         </button>}
         </div>
       </div>
       <hr />

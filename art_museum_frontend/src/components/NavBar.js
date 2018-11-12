@@ -15,14 +15,15 @@ class NavBar extends Component {
     const { activeItem } = this.state
 
     return (
-      <Segment inverted>
-        <Menu inverted pointing secondary>
+      <Segment>
+        <Menu pointing secondary>
           <NavLink exact to="/"><Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} /></NavLink>
 
         <NavLink exact to="/login"><Menu.Item
             name='login'
             active={activeItem === 'login'}
             onClick={this.handleItemClick}
+            users={this.props.users}
           /></NavLink>
         <Menu.Item
             name='logout'

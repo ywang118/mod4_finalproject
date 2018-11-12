@@ -7,7 +7,7 @@ body {
   font-family: 'Varela Round', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #F6E9CF;
+  background-color: #F6E9CF !important;
 }
 
 code {
@@ -19,6 +19,7 @@ code {
   padding-left: 20px;
   padding-top: 30px;
   padding-right: 100px;
+  background-color: #F6E9CF;
 }
 
 .modal {
@@ -41,4 +42,43 @@ code {
 
 .display-none {
   display: none;
+}
+.header {
+  margin-top: -15px;
+}
+.artwork {
+  display: flex;
+  /* flex-direction: row; */
+}
+.art-img {
+  display: flex;
+  /* flex-direction: column; */
+}
+.art-desc {
+  /* display: flex; */
+}
+
+.button-div {
+  background-color: #F6E9CF;
+  padding-bottom: 20px;
+}
+
+.sidebar {
+  background-color: #F6E9CF;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-right: lightgrey solid 1px;
+}
+.artwork-col {
+  background-color: #F6E9CF;
+}
+
+.favorite-div {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.home {
+  background-color: #F6E9CF;
 }

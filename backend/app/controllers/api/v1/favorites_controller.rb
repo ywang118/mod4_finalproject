@@ -6,7 +6,7 @@ class Api::V1::FavoritesController < ApplicationController
   end
 
   def create
-    @favorite = Favorite.create(favorite_params)
+    @favorite = Favorite.find_or_create_by(favorite_params)
     render json: @favorite, status: 201
   end
 
@@ -27,8 +27,8 @@ class Api::V1::FavoritesController < ApplicationController
 
   private
   def favorite_params
-  
-    params.permit(:artwork_id,:user_id, :note )
+
+    params.require(:favorite).permit(:artwork_id,:user_id, :note )
   end
 
   def set_favorite

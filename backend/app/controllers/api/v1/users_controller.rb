@@ -24,10 +24,10 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:name, :email, :location, :bio)
+    params.require(:user).permit(:name, :email, :location, :bio)
   end
 
-  def find_note
-    @note = Note.find(params[:id])
+  def find_user
+    @user = User.find(params[:id])
   end
 end
