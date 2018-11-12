@@ -54,9 +54,6 @@ code {
   display: flex;
   /* flex-direction: column; */
 }
-.art-desc {
-  /* display: flex; */
-}
 
 .button-div {
   background-color: #F6E9CF;
@@ -75,10 +72,16 @@ code {
 }
 
 .favorite-div {
-  padding-top: 20px;
+  padding-top: 30px;
   padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 100px;
 }
 
 .home {
   background-color: #F6E9CF;
+}
+
+.favorite-title:hover {
+  color: #4da6ff;
 }

@@ -13,7 +13,9 @@ import SideBar from './components/SideBar'
 class App extends Component {
   state = {
     users: [],
-    currentUser: null
+    currentUser: null,
+    setEmail: "",
+    setName: ""
   }
 
   componentDidMount() {
@@ -27,15 +29,30 @@ class App extends Component {
     })
   }
 
+  handleChange = (event) => {
+    console.log(event.target.value)
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  setCurrentUser = (event) => {
+    event.preventDefault()
+    const user = this.state.users.find(userObj => userObj.name === this.state.setName && userObj.email === this.state.setEmail)
+    this.setState({
+      currentUser: user
+    }, () => {console.log(this.state)})
+  }
+
   render(){
-    
+    // console.log(this.state.userName)
     return(
       <div className="App">
         <NavBar users={this.state.users}/>
         <Switch>
 
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/" component={Home} />
+            <Route exact path="/login" render={(props)=><Login setCurrentUser={this.setCurrentUser} handleChange={this.handleChange} setName={this.state.setName} setEmail={this.state.setEmail} />} />
+            <Route exact path="/" render={(props) => <Home currentUser={this.state.currentUser}/>} />
         </Switch>
       </div>
     )

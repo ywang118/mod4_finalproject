@@ -4,7 +4,7 @@ import '../App.css';
 import Header from './Header'
 import ArtworksContainer from './ArtworksContainer'
 import SideBar from './SideBar'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Form } from 'semantic-ui-react'
 // import { Grid, Row, Col } from 'react-bootstrap'
 
 class Home extends Component {
@@ -17,6 +17,8 @@ class Home extends Component {
     show: false,
     selectedImage: null,
     selectedFavorite: null,
+    formShow: false,
+    newText: ""
   }
 
   componentDidMount() {
@@ -109,8 +111,8 @@ class Home extends Component {
      },
      'body': JSON.stringify({
        'artwork_id': artworkObj.id,
-       'user_id': 1,
-       'note': 'this note will be filled in by user'
+       'user_id': this.props.currentUser.id,
+       'note': 'Enter your note here.'
      })
    })
    .then(response => response.json())
@@ -149,14 +151,57 @@ class Home extends Component {
     })
   }
 
+  toggleNoteForm = (event, favorite) => {
+    console.log(event.target)
+    this.setState({
+      formShow: !this.state.formShow,
+      newText: this.state.selectedFavorite.note
+    })
+  }
+
+  handleNote = (event, favoriteId) => {
+    console.log(event.target.value)
+    this.setState({
+      newText: event.target.value
+    })
+  }
+
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    fetch(`http://localhost:3000/api/v1/favorites/${this.state.selectedFavorite.id}`, {
+      'method': 'PATCH',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      'body': JSON.stringify({
+        'note': this.state.newText
+      })
+    })
+    .then(response => response.json())
+    .then(json => {
+      console.log(json)
+      this.setState({
+        favorites: this.state.favorites.map(favoriteObj => {
+          if (favoriteObj.id === json.id) {
+            favoriteObj.note = json.note
+          }
+          return favoriteObj
+        }),
+        formShow: false
+      })
+    })
+  }
+
   render() {
-    console.log(this.state.favorites)
+    // console.log(this.state.favorites)
     return (
       <div className="home">
         <Header artworks={this.state.artworks} handleChange={this.handleChange} />
         <div className="row">
           <div className="sidebar col-3">
-            <SideBar chooseFavorite={this.chooseFavorite} backToHome={this.backToHome} favorites={this.state.favorites}/>
+            <SideBar currentUser={this.props.currentUser} chooseFavorite={this.chooseFavorite} backToHome={this.backToHome} favorites={this.state.favorites}/>
           </div>
           <Modal show={this.state.show} handleClose={this.hideModal} >
             <div>
@@ -191,6 +236,25 @@ class Home extends Component {
                 <Icon name='heart outline'/>
                 {"Favorite"}
                 </button>}
+              </div>
+              <hr />
+              <div className="note-div">
+                <h3>Note:</h3>
+                <p>{this.state.selectedFavorite.note}</p>
+                <button onClick={event=> this.toggleNoteForm(event, this.state.selectedFavorite)} className="btn btn-outline-dark">Edit Note</button>
+                {this.state.formShow ?
+                  <div>
+                    <br />
+                    <Form onSubmit={event => this.handleSubmit(event)}>
+                      <Form.TextArea onChange={event => this.handleNote(event, this.state.selectedFavorite.id)} placeholder="Enter text here" value={this.state.newText} />
+                      <Form.Button>Submit</Form.Button>
+                    </Form>
+                  </div>
+                  :
+                  null
+                }
+                <br />
+                <br />
               </div>
             </div>
             :
