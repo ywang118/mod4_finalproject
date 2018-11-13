@@ -42,6 +42,8 @@ class App extends Component {
     const user = this.state.users.find(userObj => userObj.name === this.state.setName && userObj.email === this.state.setEmail)
     this.setState({
       currentUser: user,
+      setEmail: "",
+      setName: ""
     }, () => {
       if (this.state.currentUser) {
         this.props.history.push('/')

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Form } from 'semantic-ui-react'
 
 class Profile extends Component {
   state = {
@@ -42,6 +42,12 @@ class Profile extends Component {
             <p><b>Phone: </b>{this.props.currentUser.phone}</p>
             <p><b>Address: </b>{this.props.currentUser.location}</p>
             <p><b>Email: </b>{this.props.currentUser.email}</p>
+            <br />
+            <br />
+            <Form id="logout-form" onSubmit={this.props.logoutCurrentUser} >
+              <button className="btn btn-outline-dark">Logout</button>
+            </Form>
+            <br />
           </div>
           <div className="col 1">
           </div>
