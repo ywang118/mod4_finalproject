@@ -4,6 +4,7 @@ import '../App.css';
 import Header from './Header'
 import ArtworksContainer from './ArtworksContainer'
 import SideBar from './SideBar'
+import ImageModal from './ImageModal'
 import { Icon, Form } from 'semantic-ui-react'
 // import { Grid, Row, Col } from 'react-bootstrap'
 
@@ -17,7 +18,6 @@ class Home extends Component {
     show: false,
     selectedImage: null,
     selectedFavorite: null,
-    selectedArtwork: null,
     formShow: false,
     newText: ""
   }
@@ -151,13 +151,6 @@ class Home extends Component {
     console.log(event.target)
     this.setState({
       selectedFavorite: favorite
-    })
-  }
-
-  chooseArtwork = (event, artwork) => {
-    console.log(event.target)
-    this.setState({
-      selectedArtwork: artwork
     })
   }
 
@@ -301,11 +294,6 @@ class Home extends Component {
               <img src={this.state.selectedImage} style={{maxHeight: '750px', maxWidth: '750px'}}/>
             </div>
           </ImageModal>
-          <ArtworkModal >
-            <div>
-              <img src={this.state.selectedImage} style={{maxHeight: '750px', maxWidth: '750px'}}/>
-            </div>
-          </ArtworkModal>
           <div className='artwork-col col-9'>
           { this.state.selectedFavorite ?
             <>
@@ -323,32 +311,6 @@ class Home extends Component {
   }
 }
 
-const ImageModal = ({ handleClose, show, children }) => {
-  const showHideClassName = show ? 'modal display-block' : 'modal display-none'
 
-  return (
-    <div onClick={handleClose} className={showHideClassName}>
-      <section className='modal-main'>
-        <center>
-        {children}
-        </center>
-      </section>
-    </div>
-  )
-}
-
-const ArtworkModal = (props) => {
-  const showHideClassName = props.artShow ? 'art-modal display-block' : 'art-modal display-none';
-
-  return (
-    <div className={showHideClassName}>
-      <section className='art-modal-main'>
-        <center>
-        {props.children}
-        </center>
-      </section>
-    </div>
-  )
-}
 
 export default Home;
