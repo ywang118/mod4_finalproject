@@ -29,12 +29,6 @@ class NavBar extends Component {
         active={activeItem === 'login'}
         onClick={this.handleItemClick}
         /></NavLink>
-
-        <NavLink exact to="/logout"><Menu.Item
-            name='logout'
-            active={activeItem === 'logout'}
-            onClick={this.handleItemClick}
-          /></NavLink>
         </Menu>
       </Segment>
     )

@@ -6,7 +6,7 @@ import './App.css';
 import NavBar from './components/NavBar'
 import Header from './components/Header'
 import Login from './components/Login'
-import Logout from './components/Logout'
+// import Logout from './components/Logout'
 import ArtworksContainer from './components/ArtworksContainer'
 import SideBar from './components/SideBar'
 // import { Grid, Row, Col } from 'react-bootstrap'
@@ -61,9 +61,8 @@ class App extends Component {
       <div className="App">
         <NavBar users={this.state.users} />
         <Switch>
-            <Route exact path="/logout" render={(props) => <Logout logoutCurrentUser={this.logoutCurrentUser} />} />
             <Route exact path="/login" render={(props)=><Login setCurrentUser={this.setCurrentUser} handleChange={this.handleChange} setName={this.state.setName} setEmail={this.state.setEmail} />} />
-            <Route exact path="/" render={(props) => <Home currentUser={this.state.currentUser}/>} />
+            <Route exact path="/" render={(props) => <Home logoutCurrentUser = {this.logoutCurrentUser} currentUser={this.state.currentUser}/>} />
         </Switch>
       </div>
     )

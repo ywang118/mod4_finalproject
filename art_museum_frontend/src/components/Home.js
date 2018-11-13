@@ -209,7 +209,13 @@ class Home extends Component {
         <Header artworks={this.state.artworks} handleChange={this.handleChange} />
         <div className="row">
           <div className="sidebar col-3">
-            <SideBar currentUser={this.props.currentUser} chooseFavorite={this.chooseFavorite} backToHome={this.backToHome} favorites={this.state.favorites}/>
+            <SideBar
+            currentUser={this.props.currentUser}
+            chooseFavorite={this.chooseFavorite}
+            backToHome={this.backToHome}
+            favorites={this.state.favorites}
+            logoutCurrentUser={this.props.logoutCurrentUser}
+            />
           </div>
           <Modal show={this.state.show} handleClose={this.hideModal} >
             <div>
