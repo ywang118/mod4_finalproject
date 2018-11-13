@@ -62,7 +62,7 @@ code {
 
 .sidebar {
   background-color: #F6E9CF;
-  padding-left: 20px;
+  padding-left: 30px;
   padding-bottom: 20px;
   padding-top: 20px;
   border-right: lightgrey solid 1px;
@@ -82,6 +82,10 @@ code {
   background-color: #F6E9CF;
 }
 
-.favorite-title:hover {
+.fav-title:hover {
   color: #4da6ff;
+}
+
+.form-div {
+  padding-left: 20px;
 }

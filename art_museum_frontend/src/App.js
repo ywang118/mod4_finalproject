@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import Home from './components/Home'
-import { Route, Switch, withRouter} from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter} from 'react-router-dom';
 import './App.css';
 import NavBar from './components/NavBar'
 import Header from './components/Header'
 import Login from './components/Login'
+import Logout from './components/Logout'
 import ArtworksContainer from './components/ArtworksContainer'
 import SideBar from './components/SideBar'
 // import { Grid, Row, Col } from 'react-bootstrap'
@@ -15,7 +16,7 @@ class App extends Component {
     users: [],
     currentUser: null,
     setEmail: "",
-    setName: ""
+    setName: "",
   }
 
   componentDidMount() {
@@ -40,17 +41,27 @@ class App extends Component {
     event.preventDefault()
     const user = this.state.users.find(userObj => userObj.name === this.state.setName && userObj.email === this.state.setEmail)
     this.setState({
-      currentUser: user
-    }, () => {console.log(this.state)})
+      currentUser: user,
+    }, () => {this.props.history.push('/')})
+  }
+
+  logoutCurrentUser = (event) => {
+    event.preventDefault()
+    this.setState({
+      currentUser: null,
+      setEmail: "",
+      setName: ""
+    }, () => {this.props.history.push('/')})
+
   }
 
   render(){
     // console.log(this.state.userName)
     return(
       <div className="App">
-        <NavBar users={this.state.users}/>
+        <NavBar users={this.state.users} />
         <Switch>
-
+            <Route exact path="/logout" render={(props) => <Logout logoutCurrentUser={this.logoutCurrentUser} />} />
             <Route exact path="/login" render={(props)=><Login setCurrentUser={this.setCurrentUser} handleChange={this.handleChange} setName={this.state.setName} setEmail={this.state.setEmail} />} />
             <Route exact path="/" render={(props) => <Home currentUser={this.state.currentUser}/>} />
         </Switch>

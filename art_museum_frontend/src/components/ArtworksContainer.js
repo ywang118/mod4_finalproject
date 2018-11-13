@@ -12,6 +12,7 @@ export default class ArtworksContainer extends Component {
           showModal={this.props.showModal}
           favoriteArtwork={this.props.favoriteArtwork}
           favorites={this.props.favorites}
+          currentUser={this.props.currentUser}
           />)}
         <br />
       </div>

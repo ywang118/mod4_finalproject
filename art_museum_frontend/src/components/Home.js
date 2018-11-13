@@ -26,16 +26,24 @@ class Home extends Component {
     .then(response => response.json())
    .then(artworkData => {
      console.log(artworkData)
-     this.setState({artworks: artworkData})
+     this.setState({artworks: artworkData.sort((a,b) => a.division > b.division ? 1 : (b.division > a.division ? -1 : 0))})
    })
 
    fetch('http://localhost:3000/api/v1/favorites')
    .then(response => response.json())
    .then(favoriteData => {
-     console.log(favoriteData)
-     this.setState({
-       favorites: favoriteData
-     })
+     if (this.props.currentUser) {
+       const filteredFavorites = favoriteData.filter(favoriteObj => favoriteObj.user_id === this.props.currentUser.id)
+       console.log(filteredFavorites)
+       this.setState({
+         favorites: filteredFavorites
+       })
+     } else {
+       console.log(favoriteData)
+       this.setState({
+         favorites: favoriteData
+       })
+     }
    })
  }
 
@@ -265,6 +273,7 @@ class Home extends Component {
             showModal={this.showModal}
             favoriteArtwork={this.favoriteArtwork}
             favorites={this.state.favorites}
+            currentUser={this.props.currentUser}
             />
             <center className="button-div">
               {this.state.startingIndex === 0 ? null : <button onClick={event=> this.goBack(event)} className="btn btn-outline-dark">Prev</button>}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon } from 'semantic-ui-react'
 
-const Artwork = ({artwork, showModal,favoriteArtwork, favorites}) => {
+const Artwork = ({artwork, showModal,favoriteArtwork, favorites, currentUser}) => {
   return(
     <React.Fragment>
       <div className="artwork row">
@@ -16,15 +16,22 @@ const Artwork = ({artwork, showModal,favoriteArtwork, favorites}) => {
           {artwork.division ? <p>Division: { artwork.division }</p> : null}
           {artwork.description ? <p>Description: { artwork.description }</p> : null}
           <br />
-         {favorites.find(favoriteObj => favoriteObj.artwork_id === artwork.id) ?
-           <button onClick={event=>favoriteArtwork(event, artwork.id)} className="btn btn-outline-dark">
-         <Icon name='heart' />
-         {"Unfavorite"}
-         </button> :
-         <button onClick={event=>favoriteArtwork(event, artwork.id)} className="btn btn-outline-dark">
-         <Icon name='heart outline'/>
-         {"Favorite"}
-         </button>}
+          {
+            currentUser ?
+            <div>
+              {favorites.find(favoriteObj => favoriteObj.artwork_id === artwork.id) ?
+              <button onClick={event=>favoriteArtwork(event, artwork.id)} className="btn btn-outline-dark">
+              <Icon name='heart' />
+              {"Unfavorite"}
+              </button> :
+              <button onClick={event=>favoriteArtwork(event, artwork.id)} className="btn btn-outline-dark">
+              <Icon name='heart outline'/>
+              {"Favorite"}
+              </button>}
+            </div>
+              :
+              null
+          }
         </div>
       </div>
       <hr />
