@@ -17,6 +17,7 @@ class Home extends Component {
     show: false,
     selectedImage: null,
     selectedFavorite: null,
+    selectedArtwork: null,
     formShow: false,
     newText: ""
   }
@@ -153,9 +154,17 @@ class Home extends Component {
     })
   }
 
+  chooseArtwork = (event, artwork) => {
+    console.log(event.target)
+    this.setState({
+      selectedArtwork: artwork
+    })
+  }
+
   backToHome = () => {
     this.setState({
-      selectedFavorite: null
+      selectedFavorite: null,
+      selectedArtwork: null
     })
   }
 
@@ -202,8 +211,78 @@ class Home extends Component {
     })
   }
 
+  showFavorite = () => {
+    return (
+      <div className="favorite-div artwork row">
+        <div className="art-image col-3">
+          <img onClick={event=> this.showModal(this.state.selectedFavorite.artwork)} src={this.state.selectedFavorite.artwork.img} style={{maxWidth: '200px', maxHeight: '400px'}}/>
+        </div>
+        <div className="art-desc col-9">
+          <h4><b>{this.state.selectedFavorite.artwork.title}</b></h4>
+          {this.state.selectedFavorite.artwork.dated ? <p>Dated: { this.state.selectedFavorite.artwork.dated }</p> : null}
+          {this.state.selectedFavorite.artwork.period ? <p>Period: { this.state.selectedFavorite.artwork.period }</p> : null}
+          {this.state.selectedFavorite.artwork.people ? <p>Artist: { this.state.selectedFavorite.artwork.people }</p> : null}
+          {this.state.selectedFavorite.artwork.culture ? <p>Culture: { this.state.selectedFavorite.artwork.culture }</p> : null}
+          {this.state.selectedFavorite.artwork.classification ? <p>Classification: { this.state.selectedFavorite.artwork.classification }</p> : null}
+          {this.state.selectedFavorite.artwork.medium ? <p>Medium: { this.state.selectedFavorite.artwork.medium }</p> : null}
+          {this.state.selectedFavorite.artwork.division ? <p>Division: { this.state.selectedFavorite.artwork.division }</p> : null}
+          {this.state.selectedFavorite.artwork.diminsions ? <p>Dimensions: { this.state.selectedFavorite.artwork.diminsions }</p> : null}
+          {this.state.selectedFavorite.artwork.accessionyear ? <p>Accession Year: { this.state.selectedFavorite.artwork.accessionyear }</p> : null}
+          {this.state.selectedFavorite.artwork.description ? <p>Description: { this.state.selectedFavorite.artwork.description }</p> : null}
+          <br />
+          {this.state.favorites.find(favoriteObj => favoriteObj.artwork_id === this.state.selectedFavorite.artwork.id) ?
+            <button onClick={event=>this.favoriteArtwork(event, this.state.selectedFavorite.artwork.id)} className="btn btn-outline-dark">
+          <Icon name='heart' />
+          {"Unfavorite"}
+          </button> :
+          <button onClick={event=>this.favoriteArtwork(event, this.state.selectedFavorite.artwork.id)} className="btn btn-outline-dark">
+          <Icon name='heart outline'/>
+          {"Favorite"}
+          </button>}
+        </div>
+        <hr />
+        <div className="note-div">
+          <h3>Note:</h3>
+          <p>{this.state.selectedFavorite.note}</p>
+          <button onClick={event=> this.toggleNoteForm(event, this.state.selectedFavorite)} className="btn btn-outline-dark">Edit Note</button>
+          {this.state.formShow ?
+            <div>
+              <br />
+              <Form onSubmit={event => this.handleSubmit(event)}>
+                <Form.TextArea onChange={event => this.handleNote(event, this.state.selectedFavorite.id)} placeholder="Enter text here" value={this.state.newText} />
+                <Form.Button>Submit</Form.Button>
+              </Form>
+            </div>
+            :
+            null
+          }
+          <br />
+          <br />
+        </div>
+      </div>
+    )
+  }
+
+  showAllArtwork = () => {
+    return (
+      <div>
+      <ArtworksContainer
+      startingIndex={this.state.startingIndex}
+      artworks={this.state.searchTerm === "" ? this.displayArtwork() : this.filterArtworks()}
+      showModal={this.showModal}
+      favoriteArtwork={this.favoriteArtwork}
+      favorites={this.state.favorites}
+      currentUser={this.props.currentUser}
+      />
+      <center className="button-div">
+      {this.state.startingIndex === 0 ? null : <button onClick={event=> this.goBack(event)} className="btn btn-outline-dark">Prev</button>}
+      {this.state.startingIndex === 500 ? null : <button className="btn btn-outline-dark" onClick={event=> this.moreArtwork(event)}>Next</button>}
+      </center>
+      </div>
+    )
+  }
+
   render() {
-    // console.log(this.state.favorites)
     return (
       <div className="home">
         <Header artworks={this.state.artworks} handleChange={this.handleChange} />
@@ -217,75 +296,25 @@ class Home extends Component {
             logoutCurrentUser={this.props.logoutCurrentUser}
             />
           </div>
-          <Modal show={this.state.show} handleClose={this.hideModal} >
+          <ImageModal show={this.state.show} handleClose={this.hideModal} >
             <div>
               <img src={this.state.selectedImage} style={{maxHeight: '750px', maxWidth: '750px'}}/>
             </div>
-          </Modal>
+          </ImageModal>
+          <ArtworkModal >
+            <div>
+              <img src={this.state.selectedImage} style={{maxHeight: '750px', maxWidth: '750px'}}/>
+            </div>
+          </ArtworkModal>
           <div className='artwork-col col-9'>
           { this.state.selectedFavorite ?
-            <div className="favorite-div artwork row">
-              <div className="art-image col-3">
-                <img onClick={event=> this.showModal(this.state.selectedFavorite.artwork)} src={this.state.selectedFavorite.artwork.img} style={{maxWidth: '200px', maxHeight: '400px'}}/>
-              </div>
-              <div className="art-desc col-9">
-                <h4><b>{this.state.selectedFavorite.artwork.title}</b></h4>
-                {this.state.selectedFavorite.artwork.dated ? <p>Dated: { this.state.selectedFavorite.artwork.dated }</p> : null}
-                {this.state.selectedFavorite.artwork.period ? <p>Period: { this.state.selectedFavorite.artwork.period }</p> : null}
-                {this.state.selectedFavorite.artwork.people ? <p>Artist: { this.state.selectedFavorite.artwork.people }</p> : null}
-                {this.state.selectedFavorite.artwork.culture ? <p>Culture: { this.state.selectedFavorite.artwork.culture }</p> : null}
-                {this.state.selectedFavorite.artwork.classification ? <p>Classification: { this.state.selectedFavorite.artwork.classification }</p> : null}
-                {this.state.selectedFavorite.artwork.medium ? <p>Medium: { this.state.selectedFavorite.artwork.medium }</p> : null}
-                {this.state.selectedFavorite.artwork.division ? <p>Division: { this.state.selectedFavorite.artwork.division }</p> : null}
-                {this.state.selectedFavorite.artwork.diminsions ? <p>Dimensions: { this.state.selectedFavorite.artwork.diminsions }</p> : null}
-                {this.state.selectedFavorite.artwork.accessionyear ? <p>Accession Year: { this.state.selectedFavorite.artwork.accessionyear }</p> : null}
-                {this.state.selectedFavorite.artwork.description ? <p>Description: { this.state.selectedFavorite.artwork.description }</p> : null}
-                <br />
-                {this.state.favorites.find(favoriteObj => favoriteObj.artwork_id === this.state.selectedFavorite.artwork.id) ?
-                  <button onClick={event=>this.favoriteArtwork(event, this.state.selectedFavorite.artwork.id)} className="btn btn-outline-dark">
-                <Icon name='heart' />
-                {"Unfavorite"}
-                </button> :
-                <button onClick={event=>this.favoriteArtwork(event, this.state.selectedFavorite.artwork.id)} className="btn btn-outline-dark">
-                <Icon name='heart outline'/>
-                {"Favorite"}
-                </button>}
-              </div>
-              <hr />
-              <div className="note-div">
-                <h3>Note:</h3>
-                <p>{this.state.selectedFavorite.note}</p>
-                <button onClick={event=> this.toggleNoteForm(event, this.state.selectedFavorite)} className="btn btn-outline-dark">Edit Note</button>
-                {this.state.formShow ?
-                  <div>
-                    <br />
-                    <Form onSubmit={event => this.handleSubmit(event)}>
-                      <Form.TextArea onChange={event => this.handleNote(event, this.state.selectedFavorite.id)} placeholder="Enter text here" value={this.state.newText} />
-                      <Form.Button>Submit</Form.Button>
-                    </Form>
-                  </div>
-                  :
-                  null
-                }
-                <br />
-                <br />
-              </div>
-            </div>
+            <>
+              {this.showFavorite()}
+            </>
             :
-            <div>
-            <ArtworksContainer
-            startingIndex={this.state.startingIndex}
-            artworks={this.state.searchTerm === "" ? this.displayArtwork() : this.filterArtworks()}
-            showModal={this.showModal}
-            favoriteArtwork={this.favoriteArtwork}
-            favorites={this.state.favorites}
-            currentUser={this.props.currentUser}
-            />
-            <center className="button-div">
-              {this.state.startingIndex === 0 ? null : <button onClick={event=> this.goBack(event)} className="btn btn-outline-dark">Prev</button>}
-              {this.state.startingIndex === 500 ? null : <button className="btn btn-outline-dark" onClick={event=> this.moreArtwork(event)}>Next</button>}
-              </center>
-            </div>
+            <>
+              {this.showAllArtwork()}
+            </>
           }
           </div>
         </div>
@@ -294,8 +323,8 @@ class Home extends Component {
   }
 }
 
-const Modal = ({ handleClose, show, children }) => {
-  const showHideClassName = show ? 'modal display-block' : 'modal display-none';
+const ImageModal = ({ handleClose, show, children }) => {
+  const showHideClassName = show ? 'modal display-block' : 'modal display-none'
 
   return (
     <div onClick={handleClose} className={showHideClassName}>
@@ -305,7 +334,21 @@ const Modal = ({ handleClose, show, children }) => {
         </center>
       </section>
     </div>
-  );
+  )
+}
+
+const ArtworkModal = (props) => {
+  const showHideClassName = props.artShow ? 'art-modal display-block' : 'art-modal display-none';
+
+  return (
+    <div className={showHideClassName}>
+      <section className='art-modal-main'>
+        <center>
+        {props.children}
+        </center>
+      </section>
+    </div>
+  )
 }
 
 export default Home;

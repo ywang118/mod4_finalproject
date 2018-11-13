@@ -36,6 +36,20 @@ code {
   }
 }
 
+.art-modal {
+  width: 750px;
+  height: 750px;
+  background: black;
+  margin: 0 auto;
+  vertical-align: middle;
+  top: 20px;
+
+  .art-modal-main {
+    margin: 0 auto;
+    background: white;
+  }
+}
+
 .display-block {
   display: block;
 }
@@ -83,6 +97,10 @@ code {
 }
 
 .fav-title:hover {
+  color: #4da6ff;
+}
+
+.art-title:hover {
   color: #4da6ff;
 }
 

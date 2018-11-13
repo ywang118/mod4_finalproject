@@ -9,7 +9,7 @@ const Artwork = ({artwork, showModal,favoriteArtwork, favorites, currentUser}) =
           <img onClick={event=> showModal(artwork)} src={artwork.img} style={{maxWidth: '200px', maxHeight: '400px'}}/>
         </div>
         <div className="art-desc col-9">
-          <h4><b>{artwork.title}</b></h4>
+          <h4 className="art-title"><b>{artwork.title}</b></h4>
           {artwork.dated ? <p>Dated: { artwork.dated }</p> : null}
           {artwork.culture ? <p>Culture: { artwork.culture }</p> : null}
           {artwork.medium ? <p>Medium: { artwork.medium }</p> : null}
