@@ -15,12 +15,10 @@ code {
     monospace;
 }
 
-.artwork-container {
-  padding-left: 20px;
-  padding-top: 30px;
-  padding-right: 100px;
-  background-color: #F6E9CF;
+.art-container {
+  padding-top: 40px;
 }
+
 
 .modal {
   width: 750px;
@@ -62,13 +60,14 @@ code {
 .header {
   margin-top: -15px;
 }
-.artwork {
-  display: flex;
-  /* flex-direction: row; */
+
+.art-image {
+  padding-left: 20px;
+  padding-top: 20px;
 }
-.art-img {
-  display: flex;
-  /* flex-direction: column; */
+.art-desc {
+  padding-right: 100px;
+  padding-top: 20px;
 }
 
 .button-div {
@@ -87,11 +86,9 @@ code {
   background-color: #F6E9CF;
 }
 
-.favorite-div {
-  padding-top: 30px;
-  padding-bottom: 20px;
+.note-div {
   padding-left: 20px;
-  padding-right: 100px;
+  padding-top: 10px;
 }
 
 .home {
@@ -106,6 +103,26 @@ code {
   color: #4da6ff;
 }
 
-.form-div {
-  /* padding-left: 20px; */
+.profile-img {
+  max-height: 250px;
+}
+
+.profile-div {
+  padding-left: 60px;
+  padding-right: 50px;
+  padding-top: 50px;
+}
+
+.profile-info {
+  padding-right: 10px;
+}
+
+span {
+  font-size: 15px;
+  color: grey;
+}
+
+.profile-divider {
+  color: grey;
+  font-size: 12px;
 }

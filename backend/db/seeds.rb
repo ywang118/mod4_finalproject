@@ -2,6 +2,7 @@ require 'json'
 require 'pry'
 require 'faker'
 require 'rest-client'
+require 'date'
 
 User.destroy_all
 Artwork.destroy_all
@@ -20,7 +21,7 @@ end
 puts "createing users"
   i = 0
   10.times do
-  User.create!(name:name_hash[i],email: email_hash[i], bio:Faker::BojackHorseman.unique.quote)
+  User.create!(name:name_hash[i],email: email_hash[i], bio:Faker::BojackHorseman.unique.quote, gender: Faker::Gender.type, location: Faker::Address.full_address, birthday: Date.new(rand(1950..2010), rand(1..12), rand(1..29)), phone: Faker::PhoneNumber.cell_phone)
   i += 1
 end
 puts "done with users"
