@@ -23,18 +23,27 @@ class NavBar extends Component {
         active={activeItem === 'home'}
         onClick={this.handleItemClick}
         /></NavLink>
+        {
+          this.props.currentUser ?
+          null
+          :
+          <NavLink exact to="/login"><Menu.Item
+          name='login'
+          active={activeItem === 'login'}
+          onClick={this.handleItemClick}
+          /></NavLink>
+        }
 
-        <NavLink exact to="/login"><Menu.Item
-        name='login'
-        active={activeItem === 'login'}
-        onClick={this.handleItemClick}
-        /></NavLink>
-
-        <NavLink exact to="/profile"><Menu.Item
-        name='profile'
-        active={activeItem === 'profile'}
-        onClick={this.handleItemClick}
-        /></NavLink>
+        {
+          this.props.currentUser ?
+          <NavLink exact to="/profile"><Menu.Item
+          name='profile'
+          active={activeItem === 'profile'}
+          onClick={this.handleItemClick}
+          /></NavLink>
+          :
+          null
+        }
         </Menu>
       </Segment>
     )

@@ -65,7 +65,7 @@ class App extends Component {
     // console.log(this.state.userName)
     return(
       <div className="App">
-        <NavBar users={this.state.users} />
+        <NavBar users={this.state.users} currentUser={this.state.currentUser} />
         <Switch>
             <Route exact path="/profile" render={(props) => <Profile logoutCurrentUser = {this.logoutCurrentUser} currentUser={this.state.currentUser}/>} />
             <Route exact path="/login" render={(props)=><Login setCurrentUser={this.setCurrentUser} handleChange={this.handleChange} setName={this.state.setName} setEmail={this.state.setEmail} />} />
