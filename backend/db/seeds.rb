@@ -10,7 +10,7 @@ puts 'Creating USER Info'
 name_hash = []
 email_hash = []
 10.times do
-  name_hash.push(Faker::BojackHorseman.unique.character)
+  name_hash.push(Faker::TvShows::BojackHorseman.unique.character)
 end
 email_hash = []
 name_hash.each do |names|
@@ -21,7 +21,7 @@ end
 puts "createing users"
   i = 0
   10.times do
-  User.create!(name:name_hash[i],email: email_hash[i], bio:Faker::BojackHorseman.unique.quote, gender: Faker::Gender.type, location: Faker::Address.full_address, birthday: Date.new(rand(1950..2010), rand(1..12), rand(1..29)), phone: Faker::PhoneNumber.cell_phone)
+  User.create!(name:name_hash[i],email: email_hash[i], bio:Faker::TvShows::BojackHorseman.unique.quote, gender: Faker::Gender.type, location: Faker::Address.full_address, birthday: Date.new(rand(1950..2010), rand(1..12), rand(1..29)), phone: Faker::PhoneNumber.cell_phone)
   i += 1
 end
 puts "done with users"
@@ -103,7 +103,7 @@ end
 puts "-------------------------------"
 puts "creating Artworks"
 j =0
-510.times do
+505.times do
   Artwork.create!(title:titlearr_total.flatten[j], img: imagearr_total.flatten[j], culture: culturearr_total.flatten[j],classification: classificationarr_total.flatten[j],people: peoplearr_total.flatten[j],division: divisionarr_total.flatten[j],description: provenancearr_total.flatten[j], diminsions: dimensionsarr_total.flatten[j],dated: datedarr_total.flatten[j],
   accessionyear: accessionyeararr_total.flatten[j],period:periodarr_total.flatten[j], medium: mediumarr_total.flatten[j])
   j +=1

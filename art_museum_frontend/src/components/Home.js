@@ -26,7 +26,7 @@ class Home extends Component {
     fetch('http://localhost:3000/api/v1/artworks')
     .then(response => response.json())
    .then(artworkData => {
-     console.log(artworkData)
+
      this.setState({artworks: artworkData.sort((a,b) => a.division > b.division ? 1 : (b.division > a.division ? -1 : 0))})
    })
 
@@ -40,7 +40,7 @@ class Home extends Component {
          favorites: filteredFavorites
        })
      } else {
-       console.log(favoriteData)
+
        this.setState({
          favorites: favoriteData
        })
@@ -70,15 +70,18 @@ class Home extends Component {
   }
 
   handleChange = (event) => {
-    console.log(event.target.value)
+
     this.setState({
       searchTerm: event.target.value.toLowerCase()
     })
   }
 
   filterArtworks = () => {
-    return this.state.artworks.filter(artworkObj => artworkObj.title.toLowerCase().includes(this.state.searchTerm)).slice(this.state.startingIndex, this.state.startingIndex + this.state.numArtworks)
-  }
+
+     return this.state.artworks.filter(artworkObj => artworkObj.title.toLowerCase().includes(this.state.searchTerm)).slice(this.state.startingIndex, this.state.startingIndex + this.state.numArtworks)
+
+
+   }
 
   showModal = (artworkObj) => {
     this.setState({
@@ -276,6 +279,8 @@ class Home extends Component {
   }
 
   render() {
+
+
     return (
       <div className="home">
         <Header artworks={this.state.artworks} handleChange={this.handleChange} />

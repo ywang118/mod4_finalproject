@@ -23,7 +23,7 @@ class App extends Component {
     fetch('http://localhost:3000/api/v1/users')
     .then(response => response.json())
     .then(userData => {
-      console.log(userData)
+      
       this.setState({
         users: userData
       })

@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.6.1",
+    "ajv": "^6.10.2",
+    "react": "^16.9.0",
     "react-bootstrap": "^0.32.4",
-    "react-dom": "^16.6.1",
+    "react-dom": "^16.9.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
+    "react-scripts": "^3.1.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.83.0"
   },
